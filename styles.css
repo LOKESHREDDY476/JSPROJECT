@@ -1,0 +1,92 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #F57536;
+    padding: 10px 20px;
+    color: white;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Main Content */
+main {
+    padding: 20px;
+    background: #fff;
+}
+.search-area {
+    background-image: url('./images/bg.jpg');
+    background-size: cover; /* Ensure the background covers the entire element */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    text-align: center;
+    color: white;
+    padding: 50px 0px 50px 0;
+    width: 100%;
+}
+/* .search-area {
+    text-align: center;
+    padding: 50px 20px 50px 20px;
+    width: 100%;
+} */
+
+.search-box {
+    position: relative;
+    max-width: 300px;
+    margin: auto;
+}
+
+.search-box input[type="search"] {
+    padding: 8px 40px 8px 10px; /* Make space for the icon inside the input */
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+    font-size: 16px;
+}
+
+
+
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.category-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.category-item:hover img {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+/* .category-item span {
+    display: block;
+    margin-top: 8px;
+    color: #333; /* Optional: Set text color for better readability */
+/* } */
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .search-box input[type="search"] {
+        width: 90%;
+    }
+}
