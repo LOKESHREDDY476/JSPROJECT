@@ -23,6 +23,7 @@ header h1 {
     cursor: pointer;
 }
 
+
 .menu-content {
     position: absolute;
     background-color: #fff;
@@ -80,7 +81,7 @@ main {
     width: 100%;
 }
 
-.search-box {
+/* .search-box {
     position: relative;
     max-width: 300px;
     margin: auto;
@@ -100,8 +101,25 @@ main {
     transform: translateY(-50%);
     color: #ccc;
     font-size: 16px;
+} */
+.search{
+    padding:20%;
+    margin-left: 35%;
+    color:white;
 }
-
+#search{
+    padding: 13px;
+    margin-top: 50px;
+    border-radius: 32px;
+    font-size: 26px;
+    margin-left:-90px; 
+}
+#icon{
+    padding: 19px 23px;
+    border-radius:32px;
+    background-color: orange;
+    color:white;
+}
 .category-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(150px, 1fr));
