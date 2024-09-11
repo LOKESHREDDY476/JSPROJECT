@@ -11,7 +11,7 @@ header {
     color: white;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures the header content is spaced evenly */
+    justify-content: space-between;
 }
 
 header h1 {
@@ -23,18 +23,17 @@ header h1 {
     cursor: pointer;
 }
 
-
 .menu-content {
     position: absolute;
     background-color: #fff;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     right: 0;
-    top: 40px; /* Adjusted position */
+    top: 40px;
     width: 200px;
     z-index: 1000;
     display: none; /* Hide by default */
-    border-radius: 5px; /* Rounded corners */
-    overflow: hidden; /* Ensures no overflow */
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .menu-content.hidden {
@@ -52,7 +51,7 @@ header h1 {
     padding: 10px;
     color: black;
     text-decoration: none;
-    transition: background-color 0.3s ease; /* Smooth hover effect */
+    transition: background-color 0.3s ease;
 }
 
 .menu-content li a:hover {
@@ -81,55 +80,38 @@ main {
     width: 100%;
 }
 
-/* .search-box {
-    position: relative;
-    max-width: 300px;
-    margin: auto;
-}
-
-.search-box input[type="search"] {
-    padding: 8px 40px 8px 10px;
-    width: 100%;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-}
-
-.search-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #ccc;
-    font-size: 16px;
-} */
-.search{
-    padding:20%;
+.search {
+    padding: 20%;
     margin-left: 35%;
-    color:white;
+    color: white;
 }
-#search{
+
+#search {
     padding: 13px;
     margin-top: 50px;
     border-radius: 32px;
     font-size: 26px;
-    margin-left:-90px; 
+    margin-left: -90px;
 }
-#icon{
+
+#icon {
     padding: 19px 23px;
-    border-radius:32px;
+    border-radius: 32px;
     background-color: orange;
-    color:white;
+    color: white;
 }
+
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(5, minmax(150px, 1fr));
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
     gap: 15px;
     margin-top: 20px;
 }
 
 .category-item img {
     width: 100%;
-    height: auto;
+    object-fit: cover;
     border-radius: 5px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -137,6 +119,49 @@ main {
 .category-item:hover img {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Meal Details Section */
+.meal-details {
+    margin-top: 40px;
+    display: none; /* Hide by default */
+}
+
+.meal-details.visible {
+    display: block; /* Show when there are meals */
+}
+
+#meal-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 images per row */
+    gap: 20px; /* Space between images */
+    margin-top: 20px;
+}
+
+.meal-item {
+    text-align: center;
+}
+
+.meal-item img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.meal-item img:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.meal-item h3 {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+
+.hidden {
+    display: none;
 }
 
 /* Responsive Design */
