@@ -174,3 +174,8 @@ main {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+@media (max-width: 768px) {
+    #meal-list {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
+    }
+}

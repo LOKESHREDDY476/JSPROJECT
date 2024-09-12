@@ -56,19 +56,18 @@ function displayCategories(categories) {
     categoryGrid.innerHTML = ''; // Clear previous content
 
     categories.forEach(category => {
-        const categoryDiv = document.createElement('div');
+        const categoryDiv = document.createElement('div');  
         categoryDiv.className = 'category-item';
         categoryDiv.innerHTML = `
+        <span>${category.strCategory}</span>
             <img src="${category.strCategoryThumb}" alt="${category.strCategory}">
-            <span>${category.strCategory}</span>
         `;
         categoryGrid.appendChild(categoryDiv);
     });
 }
-
 // Fetch meals based on search term
 async function fetchMeals(searchTerm) {
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${encodeURIComponent(searchTerm)}`;
+    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${(searchTerm)}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -80,7 +79,7 @@ async function fetchMeals(searchTerm) {
 
 // Fetch meals based on category
 async function fetchCategoryDetails(category) {
-    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${encodeURIComponent(category)}`;
+    const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${(category)}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -94,8 +93,10 @@ async function fetchCategoryDetails(category) {
 function displayMealDetails(meals) {
     const mealDetails = document.getElementById('meal-details');
     const mealList = document.getElementById('meal-list');
-    mealList.innerHTML = ''; // Clear previous content
+    const categoriesSection = document.querySelector('.categories');
+    mealList.innerHTML = ''; 
     mealDetails.classList.add('visible');
+    categoriesSection.style.display = 'none';
 
     if (meals && meals.length > 0) {
         meals.forEach(meal => {
@@ -110,4 +111,11 @@ function displayMealDetails(meals) {
     } else {
         mealList.innerHTML = '<p>No meals found for this search.</p>';
     }
+}
+function showCategories() {
+    const categoriesSection = document.querySelector('.categories');
+    const mealDetails = document.getElementById('meal-details');
+
+    categoriesSection.style.display = 'block'; // Show categories section
+    mealDetails.classList.remove('visible'); // Hide the meal details section
 }
