@@ -14,6 +14,7 @@
             <i class="fa fa-bars" aria-hidden="true"></i>
             <div class="menu-content hidden">
                 <ul>
+                    <i style="margin-left:120px;color: red;" id="cancel" class="fa-solid fa-xmark"></i>
                     <li><a href="#" data-category="Beef">Beef</a></li>
                     <li><a href="#" data-category="Chicken">Chicken</a></li>
                     <li><a href="#" data-category="Dessert">Dessert</a></li>
@@ -48,10 +49,11 @@
             <div id="category-grid" class="category-grid">
                 <!-- Categories will be loaded here using JavaScript -->
             </div>
+            <div id="category-description" style="display: none;"></div>
         </section>
        
         <section id="meal-details" class="meal-details hidden">
-            <h2>Meals</h2>
+            <h2>Meal Details</h2>
             <div id="meal-list"></div>
         </section>
     </main>

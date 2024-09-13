@@ -120,6 +120,15 @@ main {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
+/* #category-description {
+    padding: 20px;
+    margin-top: 20px; */
+    /* background-color: #f0f0f0; Light grey background for the description box */
+    /* border-radius: 10px; /* Rounded corners for the description box */
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.2); Subtle shadow for depth */
+    /* display: none; Hidden by default, shown when a category is clicked */ */
+/* } */
+
 
 /* Meal Details Section */
 .meal-details {
@@ -163,6 +172,36 @@ main {
 .hidden {
     display: none;
 }
+/* Detailed Meal Information */
+.meal-detailed {
+    text-align: center;
+}
+
+.meal-detailed img {
+    width: 300px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.meal-detailed h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.meal-detailed p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.meal-detailed ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.meal-detailed ul li {
+    margin-bottom: 5px;
+}
+
 
 /* Responsive Design */
 @media (max-width: 600px) {
