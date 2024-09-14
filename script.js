@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
         menuIcon.style.display = 'none'; // Hide hamburger icon
         menuCancel.style.display = 'block'; // Show cancel icon
     });
-
+ 
     menuCancel.addEventListener('click', function () {
         menuContent.classList.toggle('hidden');
         menuCancel.style.display = 'none'; // Hide cancel icon
@@ -91,7 +91,6 @@ function displayCategories(categories) {
 // Function to display the category description
 function displayCategoryDescription(description) {
     const descriptionDiv = document.getElementById('category-description');
-    // descriptionDiv.textContent = description ? description : 'No description available.'; // Fallback if description is empty
     descriptionDiv.textContent = description;
     descriptionDiv.style.display = 'block'; // Make the description visible
 }
@@ -160,50 +159,78 @@ async function fetchMealDetails(mealId) {
         console.error('Error fetching meal details:', error);
     }
 }
-
-// Display detailed meal info, including description and ingredients
 function displayDetailedMealInfo(meal) {
     const mealDetails = document.getElementById('meal-details');
     const mealList = document.getElementById('meal-list');
+    const descriptionDiv = document.getElementById('category-description'); // Get description div
+    const categoriesHeading = document.querySelector('.categories h2'); // Get h2 heading
+
+    // Hide the h2 heading and description when displaying meal details
+    descriptionDiv.style.display = 'none'; // Hide description
+    categoriesHeading.style.display = 'none'; // Hide h2 heading
+
+    // Hide the category section
+    document.querySelector('.categories').style.display = 'none';
 
     // Clear the current meal list and show the detailed meal information
     mealList.innerHTML = `
-        <div class="meal-detailed">
-             <i class="fa-solid fa-house"></i>
-             <i class="fa-solid fa-forward"></i>
-            <span><h2>${meal.strMeal}</h2></span>
-            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-            <p><strong>Category:</strong> ${meal.strCategory}</p>
-            <p><strong>Area:</strong> ${meal.strArea}</p>
-            <p><strong>Instructions:</strong> ${meal.strInstructions}</p>
+    <div>
+        <div id='heading'>
+            <span class='p' style='font-size:20px'><i class="fa-solid fa-house"></i></span>
+            <span class='p'><i class="fa-solid fa-forward"></i></span>
+            <span id="para2">${meal.strMeal}</span>
+        </div>
+            <h3 id='heading-3'>MEAL DETAILS</h3>
+            <div class='flexx'> 
+                <img src='${meal.strMealThumb}' width=43% alt="${meal.strMeal}" id="clickImg2"/>
+                <section class='section1'>   
+                    <h3 id='heading-31'>${meal.strMeal}</h3>
+                    <h4 id=heading-4>CATEGORY: <span>${meal.strCategory}</span></h4>
+                    <p style='color:black'><b>Source:</b> <a href="${meal.strYoutube}" target="_blank">${meal.strYoutube}</a></p>
+                    <p id='tags'><b>Tags: </b><span>${meal.strTags}</span></p>
+           
+        <div>
             <h3>Ingredients:</h3>
+            <ol style='display:grid;grid-template-columns:auto auto;'>
             <ul>
-                ${getIngredientsList(meal)}
+                ${getIngredients(meal)}
             </ul>
+        </div>
+        </div>
+             <h3>Measures:</h3>
+            <ul style='display:grid;grid-template-columns:auto auto auto;list-style:none'>
+            <li>${getIngredientsList(meal)}</li>
+            </ul>
+           <p><strong>Instructions:</strong> ${meal.strInstructions}</p> 
         </div>
     `;
 }
 
-// Helper function to generate ingredients and measurements list
-function getIngredientsList(meal) {
-    let ingredientsList = '';
-    
-    // Loop through the ingredients (strIngredient1, strIngredient2, etc.) and measurements
+
+function getIngredients(meal) {
+    let ingredients = '';
     for (let i = 1; i <= 20; i++) {
         const ingredient = meal[`strIngredient${i}`];
-        const measure = meal[`strMeasure${i}`];
-        
         if (ingredient && ingredient !== '') {
-            ingredientsList += `<li>${measure} ${ingredient}</li>`;
-        } 
+            ingredients += `<li style='list-style:number;'></i> ${ingredient}</li>`;
+        }
     }
-
+    return ingredients;
+}
+function getIngredientsList(meal) {
+    let ingredientsList = '';
+    for (let i = 1; i <= 20; i++) {
+        const measure = meal[`strMeasure${i}`];
+        if (measure && measure !== '') {
+            ingredientsList += `<li style='list-style:none;'><i class="fa-solid fa-spoon" style='color:orange'></i> ${measure} </li>`;
+        }
+    }
     return ingredientsList;
 }
 
 function showCategories() {
     const categoriesSection = document.querySelector('.categories');
-    const mealDetails = document.getElementById('meal-details');
+    // const mealDetails = document.getElementById('meal-details');
 
     categoriesSection.style.display = 'block'; // Show categories section
     mealDetails.classList.remove('visible'); // Hide the meal details section

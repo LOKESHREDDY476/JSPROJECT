@@ -1,10 +1,3 @@
-/* General Styles */
-body, html {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
 header {
     background-color: #F57536;
     padding: 10px 20px;
@@ -15,7 +8,11 @@ header {
 }
 
 header h1 {
-    margin: 0;
+    margin: 0px 0px 0px 100px;
+}
+.meals{
+display:flex;
+justify-content: space-between;
 }
 
 .hamburger-menu {
@@ -28,7 +25,7 @@ header h1 {
     background-color: #fff;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     right: 0;
-    top: 40px;
+    top: 0px;
     width: 200px;
     z-index: 1000;
     display: none; /* Hide by default */
@@ -80,18 +77,12 @@ main {
     width: 100%;
 }
 
-.search {
-    padding: 20%;
-    margin-left: 35%;
-    color: white;
-}
-
 #search {
     padding: 13px;
     margin-top: 50px;
     border-radius: 32px;
     font-size: 26px;
-    margin-left: -90px;
+    margin-left: 30px;
 }
 
 #icon {
@@ -109,31 +100,39 @@ main {
     margin-top: 20px;
 }
 
+.category-item {
+    border: 1px solid rgb(231, 227, 227);
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
 .category-item img {
-    width: 100%;
-    object-fit: cover;
+    width: 70%;
     border-radius: 5px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.category-item span {
+    margin-left: 160px;
+    background-color: orangered;
+    color: white;
+    padding: 3px;
+    border-radius: 10px;
 }
 
 .category-item:hover img {
     transform: scale(1.05);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-/* #category-description {
+
+#category-description {
     padding: 20px;
-    margin-top: 20px; */
-    /* background-color: #f0f0f0; Light grey background for the description box */
-    /* border-radius: 10px; /* Rounded corners for the description box */
-    /* box-shadow: 0 4px 8px rgba(0,0,0,0.2); Subtle shadow for depth */
-    /* display: none; Hidden by default, shown when a category is clicked */ */
-/* } */
-
-
-/* Meal Details Section */
-.meal-details {
-    margin-top: 40px;
-    display: none; /* Hide by default */
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 10px solid red;
+    box-shadow: 0 4px 8px;
+    display: none;
 }
 
 .meal-details.visible {
@@ -142,8 +141,8 @@ main {
 
 #meal-list {
     display: grid;
-    grid-template-columns: repeat(5, 1fr); /* 5 images per row */
-    gap: 20px; /* Space between images */
+    grid-template-columns: auto auto auto auto auto; /*5 images per row*/
+    gap: 20px;
     margin-top: 20px;
 }
 
@@ -168,13 +167,8 @@ main {
     margin-top: 10px;
 }
 
-
 .hidden {
     display: none;
-}
-/* Detailed Meal Information */
-.meal-detailed {
-    text-align: center;
 }
 
 .meal-detailed img {
@@ -202,8 +196,6 @@ main {
     margin-bottom: 5px;
 }
 
-
-/* Responsive Design */
 @media (max-width: 600px) {
     .search-box input[type="search"] {
         width: 90%;
@@ -213,8 +205,36 @@ main {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
 @media (max-width: 768px) {
     #meal-list {
         grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller screens */
     }
+}
+ol{
+    background-color: orange;
+    border: 2px solid orange;
+    padding-left: 40px;
+ }
+ ol li{
+     padding: 0px 6px;
+     
+ }
+ #heading{
+    display: flex;
+    color: white;
+    background: orange;
+    margin: 0px;
+    font-size: 20px;
+    padding-left: 30px;
+}
+#heading span{
+    margin: 10px 5px;
+   
+}
+#heading-3{
+    border-bottom: 4px solid orange;
+    width: 20%;
+    margin-left: 0px;
+    font-size: 30px;
 }
