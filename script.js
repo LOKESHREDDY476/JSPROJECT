@@ -1,54 +1,64 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     const menuIcon = document.querySelector('.hamburger-menu .fa-bars');
-    const menuCancel = document.querySelector('.hamburger-menu .fa-solid.fa-xmark');
+    const menuCancel = document.querySelector('.hamburger-menu .fa-xmark');
     const menuContent = document.querySelector('.hamburger-menu .menu-content');
     const searchButton = document.getElementById('icon');
     const searchInput = document.getElementById('search');
     const categoryGrid = document.getElementById('category-grid');
 
-    // Toggle menu visibility on hamburger icon click
-    menuIcon.addEventListener('click', function () {
-        menuContent.classList.toggle('hidden');
-        menuIcon.style.display = 'none'; // Hide hamburger icon
-        menuCancel.style.display = 'block'; // Show cancel icon
-    });
- 
-    menuCancel.addEventListener('click', function () {
-        menuContent.classList.toggle('hidden');
-        menuCancel.style.display = 'none'; // Hide cancel icon
-        menuIcon.style.display = 'block'; // Show hamburger icon
+    // Toggle menu
+    menuIcon.addEventListener('click', () => toggleMenu(menuIcon, menuCancel, menuContent));
+    menuCancel.addEventListener('click', () => toggleMenu(menuCancel, menuIcon, menuContent));
+
+    // Search button functionality
+    searchButton.addEventListener('click', () => {
+        const searchTerm = searchInput.value.trim();
+        if (searchTerm) fetchMeals(searchTerm);
+        searchInput.value = '';
     });
 
-    // Fetch and display categories on page load
+    // Fetch categories for the hamburger menu and category grid
+    fetchCategoriesForMenu();
     fetchCategories();
 
-    // Search functionality
-    searchButton.addEventListener('click', function () {
-        const searchTerm = searchInput.value.trim();
-        if (searchTerm) {
-            fetchMeals(searchTerm);
-            searchInput.value = ''; // Clear search input after search
-        }
-    });
-
-    // Handle clicks on the hamburger menu for categories
-    document.querySelectorAll('.menu-content a').forEach(item => {
-        item.addEventListener('click', function (e) {
-            e.preventDefault();
-            const category = this.getAttribute('data-category');
-            fetchCategoryDetails(category);
-        });
-    });
-
-    // Handle clicks on the category grid (image or text)
-    categoryGrid.addEventListener('click', function (e) {
+    categoryGrid.addEventListener('click', (e) => {
         if (e.target.tagName === 'IMG' || e.target.tagName === 'SPAN') {
-            const category = e.target.alt || e.target.textContent;
-            fetchCategoryDetails(category);
+            fetchCategoryDetails(e.target.alt || e.target.textContent);
         }
     });
 });
 
+const toggleMenu = (hideElement, showElement, menuContent) => {
+    menuContent.classList.toggle('hidden');
+    hideElement.style.display = 'none';
+    showElement.style.display = 'block';
+};
+
+// Fetch categories from API for both hamburger menu and grid
+async function fetchCategoriesForMenu() {
+    try {
+        const response = await fetch('https://www.themealdb.com/api/json/v1/1/categories.php');
+        const data = await response.json();
+        if (data.categories) displayMenuCategories(data.categories);
+    } catch (error) {
+        console.error('Error fetching menu categories:', error);
+    }
+}
+
+function displayMenuCategories(categories) {
+    const menuList = document.getElementById('menu-list');
+    menuList.innerHTML = categories.map(category => `
+        <li><a href="#" data-category="${category.strCategory}">${category.strCategory}</a></li>
+    `).join('');
+
+    // Add event listeners to each menu item
+    menuList.querySelectorAll('a').forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.preventDefault();
+            fetchCategoryDetails(item.getAttribute('data-category'));
+        });
+    });
+}
 // Fetch categories from API and display them
 async function fetchCategories() {
     const url = 'https://www.themealdb.com/api/json/v1/1/categories.php';
@@ -182,27 +192,28 @@ function displayDetailedMealInfo(meal) {
         </div>
             <h3 id='heading-3'>MEAL DETAILS</h3>
             <div class='flexx'> 
-                <img src='${meal.strMealThumb}' width=43% alt="${meal.strMeal}" id="clickImg2"/>
+                <img src='${meal.strMealThumb}' width=40% alt="${meal.strMeal}" id="clickImg2"/>
                 <section class='section1'>   
                     <h3 id='heading-31'>${meal.strMeal}</h3>
                     <h4 id=heading-4>CATEGORY: <span>${meal.strCategory}</span></h4>
                     <p style='color:black'><b>Source:</b> <a href="${meal.strYoutube}" target="_blank">${meal.strYoutube}</a></p>
                     <p id='tags'><b>Tags: </b><span>${meal.strTags}</span></p>
            
-        <div>
-            <h3>Ingredients:</h3>
-            <ol style='display:grid;grid-template-columns:auto auto;'>
-            <ul>
-                ${getIngredients(meal)}
-            </ul>
-        </div>
-        </div>
-             <h3>Measures:</h3>
-            <ul style='display:grid;grid-template-columns:auto auto auto;list-style:none'>
-            <li>${getIngredientsList(meal)}</li>
-            </ul>
-           <p><strong>Instructions:</strong> ${meal.strInstructions}</p> 
-        </div>
+                    <div>
+                        <h3>Ingredients:</h3>
+                        <ol style='display:grid;grid-template-columns:auto auto;'>
+                            ${getIngredients(meal)}
+                        </ol>
+                    </div>
+                </section>
+            </div>
+                    <div style='backGroundColor:white'>
+                        <h3>Measures:</h3>
+                        <ul style='display:grid;grid-template-columns:auto auto auto;list-style:none'>
+                        <li>${getIngredientsList(meal)}</li>
+                        </ul>
+                        <p><strong>Instructions:</strong> ${meal.strInstructions}</p> 
+                    </div>
     `;
 }
 
@@ -219,7 +230,7 @@ function getIngredients(meal) {
 }
 function getIngredientsList(meal) {
     let ingredientsList = '';
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 15; i++) {
         const measure = meal[`strMeasure${i}`];
         if (measure && measure !== '') {
             ingredientsList += `<li style='list-style:none;'><i class="fa-solid fa-spoon" style='color:orange'></i> ${measure} </li>`;
@@ -230,8 +241,10 @@ function getIngredientsList(meal) {
 
 function showCategories() {
     const categoriesSection = document.querySelector('.categories');
-    // const mealDetails = document.getElementById('meal-details');
+    const mealDetails = document.getElementById('meal-details');
 
     categoriesSection.style.display = 'block'; // Show categories section
     mealDetails.classList.remove('visible'); // Hide the meal details section
 }
+
+
